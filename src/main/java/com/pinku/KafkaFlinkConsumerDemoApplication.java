@@ -25,8 +25,8 @@ public class KafkaFlinkConsumerDemoApplication {
 		);
 		env.addSource(consumer)
 				.name("Kafka Source")
-				.print();
-		
+				.addSink(new MongoSink());
+
 		env.getConfig().setGlobalJobParameters(new org.apache.flink.api.common.ExecutionConfig.GlobalJobParameters() {});
 		// Execute the Flink job
 		env.execute("Flink Kafka Consumer Job");
