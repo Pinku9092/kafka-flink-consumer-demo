@@ -1,5 +1,6 @@
 package com.pinku;
 
+import com.pinku.pojos.Employee;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
@@ -18,9 +19,9 @@ public class KafkaFlinkConsumerDemoApplication {
 		properties.setProperty("bootstrap.servers", "localhost:9092");
 		properties.setProperty("group.id", "flink-group");
 		properties.setProperty("auto.offset.reset", "earliest");
-		FlinkKafkaConsumer<String> consumer = new FlinkKafkaConsumer<>(
+		FlinkKafkaConsumer<Employee> consumer = new FlinkKafkaConsumer<>(
 				"testtopic1",
-				new SimpleStringSchema(),
+				new EmployeeDeserializationSchema(),
 				properties
 		);
 		env.addSource(consumer)
